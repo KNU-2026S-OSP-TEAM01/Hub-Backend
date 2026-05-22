@@ -98,32 +98,7 @@ hub-backend/
 
 | 항목 | 내용 |
 |------|------|
-| 수동 연동 확인 | 아래 절차 참고 |
----
-
-## PLS 연동 수동 테스트 절차
-
-```bash
-# 1. PLS 기동 (Parking-Lot-Backend/ 에서)
-docker compose up db app -d
-alembic upgrade head
-
-# 2. 더미 데이터 주입 (Parking-Lot-Backend/ 에서, venv 활성화 후)
-python scripts/seed_integration.py
-# → 계정 생성, 로그인, 주차장 2개 생성 자동 수행
-
-# 3. Hub 기동 (Hub-Backend/ 에서)
-docker compose up hub -d
-
-# 4. 확인
-curl http://localhost:8001/api/v1/lots
-curl http://localhost:8001/api/v1/lots/{lot_id}
-```
-
-확인 포인트:
-- PLS에서 생성한 주차장이 Hub 응답에 나타나는가
-- `owner_user_id`, `api_key`가 Hub 응답에 없는가
-
+| 수동 연동 확인 | `docs/ref/integration-test-guide.md` 참고 |
 ---
 
 ## 남은 미결 사항

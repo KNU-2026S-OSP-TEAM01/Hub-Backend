@@ -201,29 +201,6 @@ curl http://localhost:8001/api/v1/lots/00000000-0000-0000-0000-000000000000
 
 ---
 
-## 트러블슈팅
-
-**`alembic upgrade head` 연결 오류**
-
-DB 컨테이너가 아직 준비 중일 수 있다. 5초 후 재시도한다.
-
-**Hub 응답이 빈 배열 `[]`**
-
-- Step 3 더미 데이터 주입이 성공했는지 확인
-- Hub `docker-compose.yml`의 `DATABASE_URL`이 `host.docker.internal:5432`인지 확인
-- `docker compose logs hub`에서 DB 연결 오류 여부 확인
-
-**Hub 컨테이너가 DB 연결 실패**
-
-Linux 환경에서 `host.docker.internal`을 못 찾는 경우다. `docker-compose.yml`에 아래가 있는지 확인한다.
-
-```yaml
-extra_hosts:
-  - "host.docker.internal:host-gateway"
-```
-
----
-
 ## 정리
 
 테스트 후 컨테이너를 종료한다.
