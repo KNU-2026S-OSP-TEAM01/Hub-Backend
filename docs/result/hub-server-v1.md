@@ -98,7 +98,38 @@ hub-backend/
 
 | 항목 | 내용 |
 |------|------|
-| 수동 연동 확인 | PLS compose 실행 후 Hub 로컬 기동, `GET localhost:8001/api/v1/lots` 응답 확인 |
+| 수동 연동 확인 | 아래 절차 참고 |
+---
+
+## PLS 연동 수동 테스트 절차
+
+```bash
+# 1. PLS 기동 (Parking-Lot-Backend/ 에서)
+docker compose up db app -d
+alembic upgrade head
+
+# 2. 더미 데이터 주입 (Parking-Lot-Backend/ 에서, venv 활성화 후)
+python scripts/seed_integration.py
+# → 계정 생성, 로그인, 주차장 2개 생성 자동 수행
+
+# 3. Hub 기동 (Hub-Backend/ 에서)
+docker compose up hub -d
+
+# 4. 확인
+curl http://localhost:8001/api/v1/lots
+curl http://localhost:8001/api/v1/lots/{lot_id}
+```
+
+확인 포인트:
+- PLS에서 생성한 주차장이 Hub 응답에 나타나는가
+- `owner_user_id`, `api_key`가 Hub 응답에 없는가
+
+---
+
+## 남은 미결 사항
+
+| 항목 | 내용 |
+|------|------|
 | 위도·경도 | 지오코딩 API 연동 후 PLS 스키마 변경과 함께 구현 |
 | 공영주차장 | 공공 API 실시간 호출 → 필요한 필드만 파싱해서 PLS 데이터와 합쳐 반환 |
 | FE Hub API 명세 | FE팀 요구사항 확정 후 추가 엔드포인트 협의 |
