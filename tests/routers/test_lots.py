@@ -65,6 +65,9 @@ async def test_get_lot_daily_max_fee_none(client: AsyncClient, db):
     no_max = ParkingLot(
         id=uuid.uuid4(),
         name="무제한 주차장",
+        address="서울시 중구 을지로 1",
+        latitude=37.5665,
+        longitude=126.9780,
         total_spaces=50,
         available_spaces=50,
         base_fee=0,

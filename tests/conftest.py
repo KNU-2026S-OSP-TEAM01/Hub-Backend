@@ -47,6 +47,8 @@ async def lot(db):
         id=uuid.uuid4(),
         name="테스트 주차장",
         address="경북대학교 북문 앞",
+        latitude=35.8895,
+        longitude=128.6105,
         total_spaces=100,
         available_spaces=73,
         base_fee=1000,
