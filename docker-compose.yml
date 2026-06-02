@@ -1,0 +1,18 @@
+services:
+  hub:
+    build: .
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://openpark:openpark@host.docker.internal:5432/openpark
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  db_test:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: openpark_hub_test
+      POSTGRES_USER: openpark
+      POSTGRES_PASSWORD: openpark
+    ports:
+      - "5434:5432"

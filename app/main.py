@@ -1,0 +1,19 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.config import settings
+from app.routers import lots
+
+app = FastAPI(title="OpenPark - Hub Server")
+
+_origins = [url.strip() for url in settings.frontend_url.split(",") if url.strip()]
+if _origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+app.include_router(lots.router, prefix="/api/v1", tags=["lots"])
